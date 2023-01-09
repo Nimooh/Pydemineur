@@ -20,3 +20,11 @@ def type_cellule(cell: dict) -> bool:
         and (0 <= cell[const.CONTENU] <= 8 or cell[const.CONTENU] == const.ID_MINE)
 
 
+def isContenuCorrect(contenuCellule:int)->bool:
+    """
+    Détermine si le paramètre  peut représenter le contenu d’une cellule
+    :param contenuCellule: entier représentant le contenu d'une cellule
+    :return: 'True' si le contenu de la cellule est un entier compris entre 0 et 8 ou égal à const.ID_MINE , 'False' sinon
+    """
+
+    return contenuCellule >= 0 and contenuCellule <= 8 or  contenuCellule==const.ID_MINE

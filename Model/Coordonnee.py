@@ -23,10 +23,14 @@ def construireCoordonnee(num_ligne:int,num_colonne:int)-> tuple:
     """
     Cette fonction reçoit les numéros d’une ligne et d’une colonne et retourne le tuple (num_ligne, num_colonne) correspondant
 
-    :param num_ligne: entier représentant le numéros d'une ligne , num_colonne: entier représentant le numéros d'une colonne
+    :param num_ligne: entier représentant le numéros d'une ligne
+    :param num_colonne: entier représentant le numéros d'une colonne
     :return tuple de num_ligne et num_colonne
     """
-
+    if num_ligne!=int or num_colonne!=int:
+        raise TypeError(f"construireCoordonnee : Le numéro de ligne {num_ligne} ou le numéro de colonne {num_colonne} ne sont pas des entiers")
+    if num_ligne<0 or num_colonne<0
+        raise ValueError(f"construireCoordonnee : Le numéro de ligne {num_ligne} ou de colonne {num_colonne} ne sont pas positifs")
     return (num_ligne, num_colonne)
 
 def getLigneCoordonnee(coord: tuple)-> int:
@@ -35,7 +39,8 @@ def getLigneCoordonnee(coord: tuple)-> int:
     :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
     :return: entier correspondant au numéros de la ligne
     """
-
+    if not type_coordonnee(coord):
+        raise TypeError(f"getLigneCoordonnee : Le paramètre n’est pas une coordonnée")
     return coord[0]
 
 def getColonneCoordonnee(coord: tuple)-> int:
@@ -44,5 +49,6 @@ def getColonneCoordonnee(coord: tuple)-> int:
     :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
     :return: entier correspondant au numéros de la colonne
     """
-
+    if not type_coordonnee(coord):
+        raise TypeError(f"getColonneCoordonnee : Le paramètre n’est pas une coordonnée")
     return coord[1]

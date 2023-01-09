@@ -1,6 +1,6 @@
 # Coordonnee.py
 
-import const
+
 
 # Définition des coordonnées (ligne, colonne)
 
@@ -27,9 +27,9 @@ def construireCoordonnee(num_ligne:int,num_colonne:int)-> tuple:
     :param num_colonne: entier représentant le numéros d'une colonne
     :return tuple de num_ligne et num_colonne
     """
-    if num_ligne!=int or num_colonne!=int:
+    if type(num_ligne)!=int or type(num_colonne)!=int:
         raise TypeError(f"construireCoordonnee : Le numéro de ligne {num_ligne} ou le numéro de colonne {num_colonne} ne sont pas des entiers")
-    if num_ligne<0 or num_colonne<0
+    if num_ligne<0 or num_colonne<0:
         raise ValueError(f"construireCoordonnee : Le numéro de ligne {num_ligne} ou de colonne {num_colonne} ne sont pas positifs")
     return (num_ligne, num_colonne)
 

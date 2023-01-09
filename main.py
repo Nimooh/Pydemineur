@@ -1,7 +1,7 @@
 import pygame
 from Controller.Controller import Controller
 from View.MineSweeper import MineSweeper
-
+import const
 # Essais graphiques
 #
 

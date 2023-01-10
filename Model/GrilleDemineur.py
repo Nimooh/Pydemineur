@@ -284,3 +284,23 @@ def compterMinesVoisinesGrilleDemineur(grille:list)->None:
                     if contientMineGrilleDemineur(grille,voisin):
                         mineVoisin+=1
                 setContenuGrilleDemineur(grille,(x,y),mineVoisin)
+
+def getNbMinesGrilleDemineur(grille:list)->int:
+    """
+    Retourne le nombre de mines contenues dans la grille
+
+    :param grille: grille de démineur
+    :type grille: list
+    :raises TypeError: si le paramètre n’est pas une grille
+    :return: nombre de mines
+    """
+
+    if type(grille)!=list or type(grille[0])!=list:
+        raise TypeError(f"getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
+
+    nbMines=0
+    for x in range(getNbLignesGrilleDemineur(grille)):
+        for y in range(getNbColonnesGrilleDemineur(grille)):
+            if contientMineGrilleDemineur(grille,(x,y)):
+                nbMines+=1
+    return nbMines

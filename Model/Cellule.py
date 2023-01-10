@@ -31,7 +31,7 @@ def isContenuCorrect(contenu:int)->bool:
     :rtype: bool
     """
 
-    return  type(contenu) == int and ((0 <= contenu <= 8) or contenu == const.ID_MINE)
+    return type(contenu) == int and ((0 <= contenu <= 8) or contenu == const.ID_MINE)
 
 def construireCellule(contenu:int=0,visible:bool=False)->dict:
     """

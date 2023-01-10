@@ -243,7 +243,7 @@ def getCoordonneeVoisinsGrilleDemineur(grille:list,coord:tuple)->list:
 
 def placerMinesGrilleDemineur(grille:list,nb:int,coord:tuple)->None:
     """
-
+    Place exactement nb mines dans nb cellules de la grille en évitant celle dont la coordonnée est passée en paramètre.
 
     :param grille: grille de démineur
     :type grille: list
@@ -251,6 +251,8 @@ def placerMinesGrilleDemineur(grille:list,nb:int,coord:tuple)->None:
     :type nb: int
     :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
     :type coord: tuple
+    :raises ValueError: si le nombre de mines est négatif ou dépasse le nombre total de cases de la grille moins une case
+    :raises : IndexError: : si la coordonnée ne tombe pas dans la grille
     """
 
     if nb<0 or nb>(getNbColonnesGrilleDemineur(grille)*getNbLignesGrilleDemineur(grille))-1:

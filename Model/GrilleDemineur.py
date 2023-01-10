@@ -52,3 +52,28 @@ def type_grille_demineur(grille: list) -> bool:
     # return True
 
 
+def construireGrilleDemineur(nbLigne:int,nbColonne:int)->list:
+    """
+    Crée une liste de listes construites avec des cellules et retourne cette liste
+
+    :param nbLigne: nombre de lignes de la grille
+    :type nbLigne: int
+    :param nbColonne: nombre de colonnes de la grille
+    :type nbColonne:int
+    :raises TypeError: si l’un des deux paramètres (ou les deux) n’est pas de type entier
+    :raises ValueError: si le nombre de lignes ou le nombre de colonnes est négatif ou nul
+    :return: liste de listes construites avec des cellules
+    :rtype:list
+    """
+
+    if type(nbLigne)!=int or type(nbColonne)!=int:
+        raise TypeError(f"construireGrilleDemineur : Le nombre de lignes {nbLigne} ou de colonnes {nbColonne} n’est pas un entier.")
+    if nbLigne <= 0 or nbColonne <= 0:
+        raise ValueError(f"construireGrilleDemineur : Le nombre de lignes {nbLigne} ou de colonnes {nbColonne} est négatif ou nul. ")
+    grille=[]
+    for x in range(nbLigne):
+        ligne=[]
+        for y in range(nbColonne):
+            ligne.append(construireCellule())
+        grille.append(ligne)
+    return grille

@@ -106,3 +106,44 @@ def getNbColonnesGrilleDemineur(grille:list)->int:
     if type(grille)!=list or type(grille[0])!=list:
         raise TypeError(f"getNbColonnesGrilleDemineur : Le paramètre n’est pas une grille")
     return len(grille[0])
+
+def isCoordonneeCorrecte(grille:list,coord:tuple)->bool:
+    """
+    Reçoit en paramètre une grille et une coordonnée puis retourne 'True' ou 'False' si oui ou non la coordonnée est présente dans la grille
+
+    :param grille: grille de démineur
+    :type grille: list
+    :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
+    :type coord: tuple
+    :raises TypeError: si un des paramètres n’est pas du bon type ou ne représente pas une grille ou une coordonnée
+    :return:  'True' si la coordonnée est contenue dans la grille, 'False' sinon.
+    :rtype: bool
+    """
+
+    if type(grille)!=list or type(coord)!=tuple:
+        raise TypeError(f"isCoordonneeCorrecte : un des paramètres n’est pas du bon type.")
+
+    return getNbLignesGrilleDemineur(grille)>coord[0] and getNbColonnesGrilleDemineur(grille)>coord[1]
+
+def getCelluleGrilleDemineur(grille:list,coord:tuple)->dict:
+    """
+    Retourne la cellule se trouvant à la coordonnée passée en paramètre dans la grille passée en paramètre.
+
+    :param grille: grille de démineur
+    :type grille: list
+    :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
+    :raises TypeError: si un des paramètres n’est pas du bon type ou ne représente pas une grille ou une coordonnée
+    :raises IndexError: si la coordonnée ne se trouve pas dans la grille
+    :type coord: tuple
+    :return: la cellule se trouvant à la coordonnée
+    :rtype: dict
+    """
+
+
+    if type(grille) != list or type(coord) != tuple:
+        raise TypeError(f"getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
+
+    if not isCoordonneeCorrecte(grille,coord):
+        raise IndexError(f"getCelluleGrilleDemineur : coordonnée non contenue dans la grille.")
+
+    return grille[coord[0]][coord[1]]

@@ -120,6 +120,8 @@ def setVisibleCellule(cell:dict,visible:bool)->None:
     :return: None
     :rtype: None
     """
+    if not type_cellule(cell):
+        raise TypeError(f"setVisibleCellule : Le premier paramètre n’est pas une cellule.")
     if type(visible) != bool:
         raise TypeError(f"setVisibleCellule : Le second paramètre n’est pas un booléen.")
 
@@ -131,6 +133,7 @@ def contientMineCellule(cell:dict)->bool:
 
     :param cell: dictionnaire représentant une cellule
     :type cell: dict
+    :raises TypeError: si le paramètre n’est pas une cellule
     :return: 'True' si la cellule contient une mine, 'False' sinon
     :rtype: bool
     """

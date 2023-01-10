@@ -40,7 +40,8 @@ def construireCellule(contenuCellule:int=0,visibilite:bool=False)->dict:
     :type contenuCellule:int
     :param visibilite: un booléen correspondant à la visibilité (initialisé par défaut à 'False')
     :type visibilite: bool
-    :raises ValueError:
+    :raises ValueError: si le paramètre correspondant au contenu n’est pas correct
+    :raises TypeError: si le second paramètre n’est pas un booléen
     :return: Le dictionnaire correspondant à cette cellule
     :rtype:dict
     """

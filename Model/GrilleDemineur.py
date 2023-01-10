@@ -212,5 +212,31 @@ def contientMineGrilleDemineur(grille:list,coord:tuple)->bool:
     :rtype: bool
     """
 
-
     return contientMineCellule(getCelluleGrilleDemineur(grille,coord))
+
+def getCoordonneeVoisinsGrilleDemineur(grille:list,coord:tuple)->list:
+
+    """
+
+    :param grille: grille de démineur
+    :type grille: list
+    :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
+    :type coord: tuple
+    :raises TypeError: si un des paramètres n’est pas du bon type ou ne représente pas une grille ou une coordonnée
+    :raises IndexError: si la coordonnée ne se trouve pas dans la grille
+    :return: liste des coordonnées des cellules voisines
+    :rtype: list
+    """
+
+    if type(grille) != list or type(coord) != tuple:
+        raise TypeError(f"getCoordonneeVoisinsGrilleDemineur : un des paramètres n’est pas du bon type.")
+
+    if not isCoordonneeCorrecte(grille, coord):
+        raise IndexError(f"getCoordonneeVoisinsGrilleDemineur : la coordonnée n’est pas dans la grille. ")
+
+    voisins=[]
+    for x in range(coord[0]-1,coord[0]+2):
+        for y in range(coord[1]-1,coord[1]+2):
+            if (x,y)!=coord and x>-1 and y>-1 and x<getNbLignesGrilleDemineur(grille) and y<getNbColonnesGrilleDemineur(grille) :
+                voisins.append((x,y))
+    return voisins

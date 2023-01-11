@@ -351,7 +351,7 @@ def gagneGrilleDemineur(grille:list)->bool:
     for x in range(getNbLignesGrilleDemineur(grille)):
         for y in range(getNbColonnesGrilleDemineur(grille)):
             coord = (x, y)
-            if not contientMineGrilleDemineur(grille, coord) and not isVisibleGrilleDemineur(grille, coord):
+            if (not contientMineGrilleDemineur(grille, coord) and not isVisibleGrilleDemineur(grille, coord)) or perduGrilleDemineur(grille):
                 return False
     return True
 

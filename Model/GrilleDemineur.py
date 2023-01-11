@@ -202,7 +202,7 @@ def setVisibleGrilleDemineur(grille:list,coord:tuple,visible:bool)->None:
 
 def contientMineGrilleDemineur(grille:list,coord:tuple)->bool:
     """
-    Retourne si oui ou non la cellulecontient une mine
+    Retourne si oui ou non la cellule contient une mine
 
     :param grille: grille de démineur
     :type grille: list
@@ -291,16 +291,31 @@ def getNbMinesGrilleDemineur(grille:list)->int:
 
     :param grille: grille de démineur
     :type grille: list
-    :raises TypeError: si le paramètre n’est pas une grille
+    :raises ValueError: si le paramètre n’est pas une grille
     :return: nombre de mines
     """
 
     if type(grille)!=list or type(grille[0])!=list:
-        raise TypeError(f"getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
+        raise ValueError(f"getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
 
     nbMines=0
     for x in range(getNbLignesGrilleDemineur(grille)):
         for y in range(getNbColonnesGrilleDemineur(grille)):
-            if contientMineGrilleDemineur(grille,(x,y)):
+            coord=(x,y)
+            if contientMineGrilleDemineur(grille,coord):
                 nbMines+=1
     return nbMines
+
+def getAnnotationGrilleDemineur(grille:list,coord:tuple)->str:
+    """
+    Retourne l’annotation de la cellule se trouvant à la coordonnée donnée dans la grille
+
+    :param grille: grille de démineur
+    :type grille: list
+    :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
+    :type coord: tuple
+    :return: annotation contenu dans la cellule
+    :rtype:str
+    """
+
+    return getAnnotationCellule(getCelluleGrilleDemineur(grille,coord))

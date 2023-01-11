@@ -373,3 +373,9 @@ def perduGrilleDemineur(grille:list)->bool:
             if contientMineGrilleDemineur(grille, coord) and isVisibleGrilleDemineur(grille, coord):
                 return True
     return False
+
+def reinitialiserGrilleDemineur(grille:list)->None:
+    for x in range(getNbLignesGrilleDemineur(grille)):
+        for y in range(getNbColonnesGrilleDemineur(grille)):
+            coord = (x, y)
+            reinitialiserCellule(getCelluleGrilleDemineur(grille, coord))

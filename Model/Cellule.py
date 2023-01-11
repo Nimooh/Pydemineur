@@ -94,8 +94,7 @@ def setContenuCellule(cell:dict,contenu:int)->None:
     :raises TypeError: si le premier paramètre n’est pas une cellule
     :raises TypeError: si le contenu n’est pas de type int
     :raises ValueError: si le contenu n’est pas correct
-    :return: None
-    :rtype: None
+
     """
     if not type_cellule(cell):
         raise TypeError(f"setContenuCellule : Le premier paramètre n’est pas une cellule.")
@@ -190,3 +189,14 @@ def changeAnnotationCellule(cell:dict)->None:
             change=i
     cell[const.ANNOTATION]=annotation[(change+1)%3]
 
+
+def reinitialiserCellule(cell:dict)->None:
+    """
+    Réinitialise tous les éléments de la cellule
+
+    :param cell: dictionnaire représentant une cellule
+    :type cell: dict
+    """
+    cell[const.CONTENU]=0
+    cell[const.VISIBLE]=False
+    cell[const.ANNOTATION]=None

@@ -336,3 +336,37 @@ def getMinesRestantesGrilleDemineur(grille:list)->int:
             if getAnnotationCellule(getCelluleGrilleDemineur(grille,coord))==const.FLAG:
                 nb+=1
     return getNbMinesGrilleDemineur(grille)-nb
+
+def gagneGrilleDemineur(grille:list)->bool:
+    """
+    Determine si la partie est gagnée
+
+    :param grille: grille de démineur
+    :type grille: list
+    :return: True si la partie est gagnée, False sinon
+    :rtype: bool
+    """
+
+
+    for x in range(getNbLignesGrilleDemineur(grille)):
+        for y in range(getNbColonnesGrilleDemineur(grille)):
+            coord = (x, y)
+            if not contientMineGrilleDemineur(grille, coord) and not isVisibleGrilleDemineur(grille, coord):
+                return False
+    return True
+
+def perduGrilleDemineur(grille:list)->bool:
+    """
+     Determine si la partie est perdue
+
+    :param grille: grille de démineur
+    :type grille: list
+    :return: True si la partie est perdue, False sinon
+    :rtype: bool
+    """
+    for x in range(getNbLignesGrilleDemineur(grille)):
+        for y in range(getNbColonnesGrilleDemineur(grille)):
+            coord = (x, y)
+            if contientMineGrilleDemineur(grille, coord) and isVisibleGrilleDemineur(grille, coord):
+                return True
+    return False

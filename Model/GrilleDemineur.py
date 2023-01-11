@@ -319,3 +319,20 @@ def getAnnotationGrilleDemineur(grille:list,coord:tuple)->str:
     """
 
     return getAnnotationCellule(getCelluleGrilleDemineur(grille,coord))
+
+def getMinesRestantesGrilleDemineur(grille:list)->int:
+    """
+    Compte le nombre nb de cellules contenant l’annotation const.FLAG et retourne le nombre total de mines – nb
+
+    :param grille: grille de démineur
+    :type grille: list
+    :return: nombre total de mines – nb
+    :rtype: int
+    """
+    nb=0
+    for x in range(getNbLignesGrilleDemineur(grille)):
+        for y in range(getNbColonnesGrilleDemineur(grille)):
+            coord = (x, y)
+            if getAnnotationCellule(getCelluleGrilleDemineur(grille,coord))==const.FLAG:
+                nb+=1
+    return getNbMinesGrilleDemineur(grille)-nb

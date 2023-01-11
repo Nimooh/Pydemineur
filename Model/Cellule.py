@@ -51,7 +51,7 @@ def construireCellule(contenu:int=0,visible:bool=False)->dict:
     if type(visible)!=bool:
         raise TypeError(f"construireCellule : le second paramètre {type(visible)} n’est pas un booléen")
 
-    return {const.CONTENU : contenu,const.VISIBLE: visible}
+    return {const.CONTENU : contenu,const.VISIBLE: visible, const.ANNOTATION:None}
 
 def getContenuCellule(cell:dict)->int:
     """
@@ -140,3 +140,15 @@ def contientMineCellule(cell:dict)->bool:
     if not type_cellule(cell):
         raise TypeError(f"contientMineCellule : Le paramètre n’est pas une cellule.")
     return cell[const.CONTENU]==const.ID_MINE
+
+def isAnnotationCorrecte(annotation:str)->bool:
+    """
+    Verifie si l’annotation est correcte
+
+    :param annotation: une annotation
+    :type annotation: str
+    :return: 'True' si l’annotation est correcte (None, const.DOUTE ou const.FLAG), 'False' sinon
+    :rtype:bool
+    """
+
+    return annotation in [None, const.DOUTE, const.FLAG]

@@ -291,18 +291,17 @@ def getNbMinesGrilleDemineur(grille:list)->int:
 
     :param grille: grille de démineur
     :type grille: list
-    :raises ValueError: si le paramètre n’est pas une grille
+    :raises TypeError: si le paramètre n’est pas une grille
     :return: nombre de mines
     """
 
     if type(grille)!=list or type(grille[0])!=list:
-        raise ValueError(f"getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
+        raise TypeError(f"getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
 
     nbMines=0
     for x in range(getNbLignesGrilleDemineur(grille)):
         for y in range(getNbColonnesGrilleDemineur(grille)):
-            coord=(x,y)
-            if contientMineGrilleDemineur(grille,coord):
+            if contientMineGrilleDemineur(grille,(x,y)):
                 nbMines+=1
     return nbMines
 
@@ -411,7 +410,32 @@ def decouvrirGrilleDemineur(grille:list,coord:tuple)->set:
 
     return decouvert
 
+def simplifierGrilleDemineur(grille:list,coord:tuple)->set:
+    """
+    Compte le nombre de drapeaux dans le voisinage de la case. Si ce nombre correspond exactement au contenu de la case, la fonction rend toutes les autres cases voisines visibles.
 
+    :param grille: grille de démineur
+    :type grille: list
+    :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
+    :type coord: tuple
+    :return: ensemble des coordonnées des cellules rendues visibles
+    :rtype: set
+    """
+
+    if isVisibleGrilleDemineur(grille,coord):
+        decouvert = set()
+        nbFlag=0
+        for voisin in getCoordonneeVoisinsGrilleDemineur(grille, coord):
+            if getAnnotationGrilleDemineur(grille,voisin)==const.FLAG:
+                nbFlag+=1
+        if getContenuGrilleDemineur(grille,coord)==nbFlag:
+            for voisin in getCoordonneeVoisinsGrilleDemineur(grille, coord):
+                if not getContenuGrilleDemineur(grille,voisin)==const.ID_MINE:
+                    decouvert.add(voisin)
+                    setVisibleGrilleDemineur(grille, voisin, True)
+            return decouvert | simplifierGrilleDemineur(grille, voisin)
+
+        return decouvert
 
 
 

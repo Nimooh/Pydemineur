@@ -237,7 +237,7 @@ def getCoordonneeVoisinsGrilleDemineur(grille:list,coord:tuple)->list:
     voisins=[]
     for x in range(coord[0]-1,coord[0]+2):
         for y in range(coord[1]-1,coord[1]+2):
-            if (x,y)!=coord and x>-1 and y>-1 and x<getNbLignesGrilleDemineur(grille) and y<getNbColonnesGrilleDemineur(grille) :
+            if (x,y)!=coord and x>=0 and y>=0 and x<getNbLignesGrilleDemineur(grille) and y<getNbColonnesGrilleDemineur(grille) :
                 voisins.append((x,y))
     return voisins
 
@@ -375,7 +375,43 @@ def perduGrilleDemineur(grille:list)->bool:
     return False
 
 def reinitialiserGrilleDemineur(grille:list)->None:
+    """
+    Réinitialise toutes les cellules de la grille
+
+    :param grille: grille de démineur
+    :type grille: list
+    """
     for x in range(getNbLignesGrilleDemineur(grille)):
         for y in range(getNbColonnesGrilleDemineur(grille)):
             coord = (x, y)
             reinitialiserCellule(getCelluleGrilleDemineur(grille, coord))
+
+def decouvrirGrilleDemineur(grille:list,coord:tuple)->set:
+    """
+    Découvre la cellule correspondant à la coordonnée passée en paramètre
+
+    :param grille: grille de démineur
+    :type grille: list
+    :param coord: couple représentant le numéro de ligne et celui de la colonne (commençant les deux à 0)
+    :type coord: tuple
+    :return: ensemble des coordonnées des cellules rendues visibles
+    :rtype: set
+    """
+    decouvert =set()
+    decouvert.add(coord)
+    setVisibleGrilleDemineur(grille,coord,True)
+
+    if getContenuGrilleDemineur(grille, coord)==0:
+        for voisin in getCoordonneeVoisinsGrilleDemineur(grille, coord):
+            decouvert.add(voisin)
+            setVisibleGrilleDemineur(grille, voisin, True)
+        return decouvert |decouvrirGrilleDemineur(grille, voisin)
+
+
+
+    return decouvert
+
+
+
+
+

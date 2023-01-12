@@ -186,8 +186,8 @@ def changeAnnotationCellule(cell:dict)->None:
     annotation=[None, const.FLAG, const.DOUTE]
     for i in range(3):
         if cell[const.ANNOTATION]==annotation[i]:
-            change=i
-    cell[const.ANNOTATION]=annotation[(change+1)%3]
+            change=i+1
+    cell[const.ANNOTATION]=annotation[(change)%3]
 
 
 def reinitialiserCellule(cell:dict)->None:

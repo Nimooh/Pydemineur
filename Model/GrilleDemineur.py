@@ -291,12 +291,12 @@ def getNbMinesGrilleDemineur(grille:list)->int:
 
     :param grille: grille de démineur
     :type grille: list
-    :raises TypeError: si le paramètre n’est pas une grille
+    :raises ValueError: si le paramètre n’est pas une grille
     :return: nombre de mines
     """
 
-    if type(grille)!=list or type(grille[0])!=list:
-        raise TypeError(f"getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
+    if not type_grille_demineur(grille):
+        raise ValueError(f"getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
 
     nbMines=0
     for x in range(getNbLignesGrilleDemineur(grille)):

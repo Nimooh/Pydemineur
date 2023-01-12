@@ -70,6 +70,7 @@ def construireGrilleDemineur(nbLigne:int,nbColonne:int)->list:
         raise TypeError(f"construireGrilleDemineur : Le nombre de lignes {nbLigne} ou de colonnes {nbColonne} n’est pas un entier.")
     if nbLigne <= 0 or nbColonne <= 0:
         raise ValueError(f"construireGrilleDemineur : Le nombre de lignes {nbLigne} ou de colonnes {nbColonne} est négatif ou nul. ")
+
     grille=[]
     for x in range(nbLigne):
         ligne=[]

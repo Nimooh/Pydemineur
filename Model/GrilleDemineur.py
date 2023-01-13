@@ -352,7 +352,7 @@ def gagneGrilleDemineur(grille:list)->bool:
         for y in range(getNbColonnesGrilleDemineur(grille)):
             coord = (x, y)
             if (not contientMineGrilleDemineur(grille, coord) and not isVisibleGrilleDemineur(grille, coord)) \
-                    or (contientMineGrilleDemineur(grille, coord) and getAnnotationGrilleDemineur(grille,coord)!=const.FLAG) \
+                    or (contientMineGrilleDemineur(grille, coord) and not getAnnotationGrilleDemineur(grille,coord)==const.FLAG) \
                     or perduGrilleDemineur(grille):
                 return False
 
@@ -457,18 +457,18 @@ def ajouterFlagsGrilleDemineur(grille:list,coord:tuple)->set:
     :return: ensemble des coordonnées des cellules où l'on a mit un drapeau
     :rtype: set
     """
-    decouvert = set()
-    nbCaseNV=8
+    flags = set()
+    nbCaseNV=0
     voisins = getCoordonneeVoisinsGrilleDemineur(grille, coord)
     for voisin in voisins:
-        if isVisibleGrilleDemineur(grille, voisin):
-            nbCaseNV -= 1
+        if not isVisibleGrilleDemineur(grille, voisin):
+            nbCaseNV += 1
     if getContenuGrilleDemineur(grille, coord) == nbCaseNV:
         for voisin in voisins:
             if not isVisibleGrilleDemineur(grille, voisin):
-                getCelluleGrilleDemineur(grille, voisin)[const.ANNOTATION] = const.FLAG
-                decouvert.add(voisin)
-    return decouvert
+                getCelluleGrilleDemineur(grille,voisin)[const.ANNOTATION]=const.FLAG
+                flags.add(voisin)
+    return flags
 
 
 def simplifierToutGrilleDemineur(grille:list)->tuple:
@@ -482,21 +482,25 @@ def simplifierToutGrilleDemineur(grille:list)->tuple:
    """
     decouvertCase=set()
     decouvertFlag=set()
-    Resolution=True
-    while Resolution:
+    decouvertCaseT=set()
+    decouvertFlagT = set()
+
+    Resol=False
+    while not Resol:
         for x in range(getNbLignesGrilleDemineur(grille)):
             for y in range(getNbColonnesGrilleDemineur(grille)):
                 coord = (x, y)
-                if not getCelluleGrilleDemineur(grille, coord)[const.RESOLU]==True and isVisibleGrilleDemineur(grille,coord):
-
+                if isVisibleGrilleDemineur(grille,coord) :
                         if not getContenuGrilleDemineur(grille,coord)==0 and not contientMineGrilleDemineur(grille,coord) :
-                            decouvertFlag | ajouterFlagsGrilleDemineur(grille,coord)
-                            decouvertCase | simplifierGrilleDemineur(grille, coord)
-                            getCelluleGrilleDemineur(grille, coord)[const.RESOLU] = True
 
-                        if not getCelluleGrilleDemineur(grille, coord)[const.RESOLU]==True:
-                             Resolution=False
+                            decouvertCase.add(coord)
+                            decouvertFlag |= ajouterFlagsGrilleDemineur(grille,coord)
+                            decouvertCase |= simplifierGrilleDemineur(grille, coord)
+        if decouvertCase==decouvertCaseT and decouvertFlag==decouvertFlagT:
+            Resol=True
 
+        decouvertCaseT |= decouvertCase
+        decouvertFlagT |= decouvertFlag
     return (decouvertCase,decouvertFlag)
 
 

@@ -402,12 +402,16 @@ def decouvrirGrilleDemineur(grille:list,coord:tuple)->set:
     setVisibleGrilleDemineur(grille,coord,True)
 
     if getContenuGrilleDemineur(grille, coord)==0:
-        for voisin in getCoordonneeVoisinsGrilleDemineur(grille, coord):
-            decouvert.add(voisin)
-            setVisibleGrilleDemineur(grille, voisin, True)
-        return decouvert |decouvrirGrilleDemineur(grille, voisin)
-
-
+        Voisin0=getCoordonneeVoisinsGrilleDemineur(grille, coord)
+        Voisin0T=[]
+        while Voisin0 != Voisin0T:
+            Voisin0T=Voisin0
+            for voisin in Voisin0:
+                if getContenuGrilleDemineur(grille, voisin) == 0 and not isVisibleGrilleDemineur(grille,voisin):
+                    for c in getCoordonneeVoisinsGrilleDemineur(grille,voisin):
+                        Voisin0.append(c)
+                decouvert.add(voisin)
+                setVisibleGrilleDemineur(grille, voisin, True)
 
     return decouvert
 

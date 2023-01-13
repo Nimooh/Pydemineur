@@ -408,7 +408,7 @@ def decouvrirGrilleDemineur(grille:list,coord:tuple)->set:
             Voisin0T=Voisin0
             for voisin in Voisin0:
                 if getContenuGrilleDemineur(grille, voisin) == 0 and not isVisibleGrilleDemineur(grille,voisin):
-                    for c in getCoordonneeVoisinsGrilleDemineur(grille,voisin):
+                        for c in getCoordonneeVoisinsGrilleDemineur(grille,voisin):
                         Voisin0.append(c)
                 decouvert.add(voisin)
                 setVisibleGrilleDemineur(grille, voisin, True)
@@ -428,19 +428,25 @@ def simplifierGrilleDemineur(grille:list,coord:tuple)->set:
     """
 
     if isVisibleGrilleDemineur(grille,coord):
-        decouvert = set()
-        nbFlag=0
-        for voisin in getCoordonneeVoisinsGrilleDemineur(grille, coord):
-            if getAnnotationGrilleDemineur(grille,voisin)==const.FLAG:
-                nbFlag+=1
-        if getContenuGrilleDemineur(grille,coord)==nbFlag:
-            for voisin in getCoordonneeVoisinsGrilleDemineur(grille, coord):
-                if not getContenuGrilleDemineur(grille,voisin)==const.ID_MINE:
-                    decouvert.add(voisin)
-                    setVisibleGrilleDemineur(grille, voisin, True)
-            return decouvert | simplifierGrilleDemineur(grille, voisin)
+        decouvert =set()
+        Voisin0 = getCoordonneeVoisinsGrilleDemineur(grille, coord)
+        Voisin0T = []
+        while Voisin0 != Voisin0T:
+            Voisin0T = Voisin0
+            nbMineV=0
+            for voisin in Voisin0:
+                if contientMineGrilleDemineur(grille,voisin):
+                    nbMineV+=1
+
+            if getContenuGrilleDemineur(grille, coord) == nbMineV:
+                for c in getCoordonneeVoisinsGrilleDemineur(grille, voisin):
+                    Voisin0.append(c)
+            decouvert.add(voisin)
+            setVisibleGrilleDemineur(grille, voisin, True)
 
         return decouvert
+
+
 
 
 

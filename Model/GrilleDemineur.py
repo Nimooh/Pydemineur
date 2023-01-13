@@ -430,8 +430,6 @@ def simplifierGrilleDemineur(grille:list,coord:tuple)->set:
     decouvert = set()
     nbFlag = 0
     voisins = getCoordonneeVoisinsGrilleDemineur(grille, coord)
-
-
     for voisin in voisins:
         if getAnnotationGrilleDemineur(grille, voisin) == const.FLAG and contientMineGrilleDemineur(grille,voisin):
             nbFlag += 1
@@ -441,8 +439,10 @@ def simplifierGrilleDemineur(grille:list,coord:tuple)->set:
                 getCelluleGrilleDemineur(grille,voisin)[const.ANNOTATION]=None
                 setVisibleGrilleDemineur(grille,voisin,True)
                 decouvert.add(voisin)
-            if getContenuGrilleDemineur(grille,coord)==0:
-                decouvrirGrilleDemineur(grille,voisin)
+            if getContenuGrilleDemineur(grille,voisin)==0:
+                getCelluleGrilleDemineur(grille, voisin)[const.ANNOTATION] = None
+                decouvert |= decouvrirGrilleDemineur(grille,voisin)
+
 
     return decouvert
 

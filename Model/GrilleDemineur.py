@@ -409,7 +409,7 @@ def decouvrirGrilleDemineur(grille:list,coord:tuple)->set:
             for voisin in Voisin0:
                 if getContenuGrilleDemineur(grille, voisin) == 0 and not isVisibleGrilleDemineur(grille,voisin):
                         for c in getCoordonneeVoisinsGrilleDemineur(grille,voisin):
-                        Voisin0.append(c)
+                             Voisin0.append(c)
                 decouvert.add(voisin)
                 setVisibleGrilleDemineur(grille, voisin, True)
 
@@ -427,24 +427,29 @@ def simplifierGrilleDemineur(grille:list,coord:tuple)->set:
     :rtype: set
     """
 
-    if isVisibleGrilleDemineur(grille,coord):
-        decouvert =set()
-        Voisin0 = getCoordonneeVoisinsGrilleDemineur(grille, coord)
-        Voisin0T = []
-        while Voisin0 != Voisin0T:
-            Voisin0T = Voisin0
-            nbMineV=0
-            for voisin in Voisin0:
-                if contientMineGrilleDemineur(grille,voisin):
-                    nbMineV+=1
+    decouvert = set()
+    nbFlag = 0
+    voisins = getCoordonneeVoisinsGrilleDemineur(grille, coord)
 
-            if getContenuGrilleDemineur(grille, coord) == nbMineV:
-                for c in getCoordonneeVoisinsGrilleDemineur(grille, voisin):
-                    Voisin0.append(c)
-            decouvert.add(voisin)
-            setVisibleGrilleDemineur(grille, voisin, True)
 
-        return decouvert
+    for voisin in voisins:
+        if getAnnotationGrilleDemineur(grille, voisin) == const.FLAG and contientMineGrilleDemineur(grille,voisin):
+            nbFlag += 1
+    if getContenuGrilleDemineur(grille,coord)==nbFlag:
+        for voisin in voisins:
+            if not isVisibleGrilleDemineur(grille, voisin) and not contientMineGrilleDemineur(grille,voisin) and not getContenuGrilleDemineur(grille,coord)==0 :
+                getCelluleGrilleDemineur(grille,voisin)[const.ANNOTATION]=None
+                setVisibleGrilleDemineur(grille,voisin,True)
+                decouvert.add(voisin)
+            if getContenuGrilleDemineur(grille,coord)==0:
+                decouvrirGrilleDemineur(grille,voisin)
+
+    return decouvert
+
+
+
+
+
 
 
 
